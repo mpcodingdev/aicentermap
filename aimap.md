@@ -1,0 +1,1 @@
+I want to create a web that's gonna be hosted on github through a idnex.html that will be a map of europe that shows the main centres of ai research of each country and provides some information and a link 

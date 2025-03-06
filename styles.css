@@ -1,0 +1,378 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    padding: 1rem;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    main {
+        flex-direction: row;
+    }
+}
+
+/* Map container and toggle styling */
+#map-container {
+    position: relative;
+    flex: 3;
+    margin-bottom: 1rem;
+}
+
+.region-toggle-bar {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 90%;
+}
+
+.region-toggle-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: white;
+    color: #2c3e50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.region-toggle-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.region-toggle-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure map is above other elements */
+}
+
+/* Country info and legend styling */
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+    border: 1px solid #999;
+}
+
+/* Gradient legend styling */
+.gradient-legend {
+    height: 20px;
+    width: 100%;
+    margin: 8px 0;
+    background: linear-gradient(to right, 
+        rgba(255, 255, 224, 0.7) 0%,
+        rgba(255, 235, 156, 0.7) 25%,
+        rgba(255, 204, 92, 0.7) 50%,
+        rgba(255, 170, 71, 0.7) 75%,
+        rgba(255, 136, 51, 0.7) 100%
+    );
+    border-radius: 3px;
+    border: 1px solid #999;
+}
+
+.gradient-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #555;
+}
+
+/* Smoother country borders */
+.leaflet-interactive {
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    shape-rendering: geometricPrecision;
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.2));
+}
+
+/* Additional styling for country paths */
+path.leaflet-interactive {
+    transition: stroke 0.2s ease, stroke-width 0.2s ease, stroke-opacity 0.2s ease;
+}
+
+/* Water pattern styling */
+.leaflet-tile-pane {
+    opacity: 0.95;
+}
+
+.water-pattern path {
+    stroke-dasharray: 4, 6;
+    animation: gentleWave 45s linear infinite;
+    filter: blur(0.3px);
+}
+
+@keyframes gentleWave {
+    to {
+        stroke-dashoffset: 1000;
+    }
+}
+
+@media (min-width: 768px) {
+    #map-container {
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
+}
+
+#info-panel {
+    flex: 1;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#info-panel h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+#center-details {
+    margin-top: 1rem;
+}
+
+.center-card {
+    border-left: 3px solid #3498db;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Main center styling */
+.center-card.main-center {
+    border-left: 3px solid #e67e22;
+    background-color: rgba(230, 126, 34, 0.05);
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0 5px 5px 0;
+}
+
+.main-center-badge {
+    display: inline-block;
+    background-color: #e67e22;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.center-card h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.center-card.main-center h3 {
+    color: #e67e22;
+}
+
+.center-card p {
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+.center-card a {
+    display: inline-block;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.center-card.main-center a {
+    color: #e67e22;
+}
+
+.center-card a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+.country-selector {
+    margin-bottom: 1.5rem;
+}
+
+.country-selector label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.country-selector select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Custom marker cluster styling */
+.marker-cluster-small {
+    background-color: rgba(181, 226, 255, 0.6);
+}
+.marker-cluster-small div {
+    background-color: rgba(110, 204, 255, 0.6);
+}
+
+.marker-cluster-medium {
+    background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+    background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large {
+    background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+    background-color: rgba(241, 128, 23, 0.6);
+}
+
+/* Adjust cluster text */
+.marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px;
+}
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.marker-cluster span {
+    line-height: 30px;
+}
+
+/* Region toggle bar styling */
+.region-toggle-bar {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 90%;
+}
+
+.region-toggle-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: white;
+    color: #2c3e50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.region-toggle-btn.active {
+    background-color: #4285F4;
+    color: white;
+}
+
+.region-toggle-btn:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.region-toggle-btn:last-child {
+    border-radius: 0 5px 5px 0;
+} 

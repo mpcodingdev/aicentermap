@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global AI Research Centers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+</head>
+<body>
+    <header>
+        <h1>Global AI Research Centers</h1>
+        <p>Explore the leading AI research institutions across the world</p>
+    </header>
+    
+    <main>
+        <div id="map-container">
+            <div class="region-toggle-bar">
+                <button id="europe-btn" class="region-toggle-btn active">Europe</button>
+                <button id="north-america-btn" class="region-toggle-btn">North America</button>
+                <button id="asia-btn" class="region-toggle-btn">Asia</button>
+                <button id="south-america-btn" class="region-toggle-btn">South America</button>
+                <button id="africa-btn" class="region-toggle-btn">Africa</button>
+                <button id="oceania-btn" class="region-toggle-btn">Oceania</button>
+            </div>
+            <div id="map"></div>
+        </div>
+        
+        <div id="info-panel">
+            <h2>Select a country to view AI research centers</h2>
+            <div id="center-details">
+                <p>Click on a marker to see details about the research center</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p><a href="https://x.com/mp_coder" target="_blank">FOLLOW ME ON X</a></p>
+    </footer>
+
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet Heat plugin for heat maps -->
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <!-- MarkerCluster JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="data.js"></script>
+    <script src="north-america-data.js"></script>
+    <script src="asia-data.js"></script>
+    <script src="south-america-data.js"></script>
+    <script src="africa-data.js"></script>
+    <script src="oceania-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
