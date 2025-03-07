@@ -7,7 +7,7 @@ const asianResearchCenters = {
             coordinates: [55.9297, 37.5215],
             description: "Research in AI, machine learning, and computer science",
             website: "https://mipt.ru/english/",
-            rating: 8.7
+            rating: 8.3
         },
         {
             name: "Skolkovo Institute of Science and Technology - Center for Computational and Data-Intensive Science and Engineering",
@@ -15,7 +15,7 @@ const asianResearchCenters = {
             coordinates: [55.7558, 37.6173],
             description: "Research in AI, data science, and computational science",
             website: "https://www.skoltech.ru/en/",
-            rating: 8.6
+            rating: 8.4
         },
         {
             name: "Yandex Research",
@@ -23,7 +23,7 @@ const asianResearchCenters = {
             coordinates: [55.7539, 37.6208],
             description: "Research in AI, machine learning, and natural language processing",
             website: "https://research.yandex.com/",
-            rating: 8.8
+            rating: 8.3
         },
         {
             name: "Saint Petersburg State University - Department of Computer Science",
@@ -31,7 +31,7 @@ const asianResearchCenters = {
             coordinates: [59.9343, 30.3351],
             description: "Research in AI, machine learning, and computer science",
             website: "https://english.spbu.ru/",
-            rating: 8.4
+            rating: 8
         },
         {
             name: "Novosibirsk State University - Laboratory of Computer Vision",
