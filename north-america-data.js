@@ -7,7 +7,7 @@ const northAmericanResearchCenters = {
             coordinates: [42.3601, -71.0942],
             description: "World-leading research in AI, robotics, and computer science",
             website: "https://www.csail.mit.edu",
-            rating: 9.8
+            rating: 10.0
         },
         {
             name: "Stanford University - Human-Centered AI Institute",
@@ -15,7 +15,7 @@ const northAmericanResearchCenters = {
             coordinates: [37.4275, -122.1697],
             description: "Research in human-centered AI, machine learning, and AI ethics",
             website: "https://hai.stanford.edu",
-            rating: 9.7
+            rating: 9.9
         },
         {
             name: "Carnegie Mellon University - School of Computer Science",
@@ -23,7 +23,7 @@ const northAmericanResearchCenters = {
             coordinates: [40.4432, -79.9428],
             description: "Pioneering research in AI, robotics, and machine learning",
             website: "https://www.cs.cmu.edu",
-            rating: 9.6
+            rating: 9.9
         },
         {
             name: "UC Berkeley - Berkeley Artificial Intelligence Research Lab",
@@ -31,7 +31,7 @@ const northAmericanResearchCenters = {
             coordinates: [37.8719, -122.2585],
             description: "Research in deep learning, reinforcement learning, and computer vision",
             website: "https://bair.berkeley.edu",
-            rating: 9.5
+            rating: 9.8
         },
         {
             name: "Google AI",
@@ -103,7 +103,7 @@ const northAmericanResearchCenters = {
             coordinates: [42.3770, -71.1167],
             description: "Research in AI, computational social science, and ethics",
             website: "https://crcs.seas.harvard.edu",
-            rating: 9.4
+            rating: 9.7
         },
         {
             name: "University of Washington - Paul G. Allen School of Computer Science & Engineering",

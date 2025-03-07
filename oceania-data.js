@@ -7,7 +7,7 @@ const oceaniaResearchCenters = {
             coordinates: [-35.2809, 149.1300],
             description: "Research in AI, machine learning, and computer vision",
             website: "https://cs.anu.edu.au/",
-            rating: 8.9
+            rating: 9.1
         },
         {
             name: "University of Sydney - Sydney Institute for Robotics and Intelligent Systems",
@@ -31,7 +31,7 @@ const oceaniaResearchCenters = {
             coordinates: [-37.7983, 144.9610],
             description: "Research in AI, machine learning, and information systems",
             website: "https://cis.unimelb.edu.au/",
-            rating: 8.8
+            rating: 9.0
         },
         {
             name: "University of Queensland - School of Information Technology and Electrical Engineering",
@@ -47,7 +47,7 @@ const oceaniaResearchCenters = {
             coordinates: [-33.8688, 151.2093],
             description: "Research in AI, data science, and cybersecurity",
             website: "https://www.data61.csiro.au/",
-            rating: 8.8
+            rating: 9.0
         },
         {
             name: "University of New South Wales - School of Computer Science and Engineering",

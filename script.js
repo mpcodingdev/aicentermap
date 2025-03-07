@@ -56,8 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(customStyles);
     
-    // Current region state
+    // Current region and filter state
     let currentRegion = 'europe';
+    let showTopPerCountry = false;
+    let showTop40InRegion = false;
     
     // Initialize the map centered on Europe
     let map = L.map('map').setView([50.0, 10.0], 4);
@@ -167,9 +169,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Initialize event listeners for filter toggle
+    document.getElementById('all-centers-btn').addEventListener('click', function() {
+        if (showTopPerCountry || showTop40InRegion) {
+            showTopPerCountry = false;
+            showTop40InRegion = false;
+            this.classList.add('active');
+            document.getElementById('top-country-btn').classList.remove('active');
+            document.getElementById('top-40-btn').classList.remove('active');
+            reloadCurrentRegion();
+        }
+    });
+    
+    document.getElementById('top-country-btn').addEventListener('click', function() {
+        if (!showTopPerCountry || showTop40InRegion) {
+            showTopPerCountry = true;
+            showTop40InRegion = false;
+            this.classList.add('active');
+            document.getElementById('all-centers-btn').classList.remove('active');
+            document.getElementById('top-40-btn').classList.remove('active');
+            reloadCurrentRegion();
+        }
+    });
+    
+    document.getElementById('top-40-btn').addEventListener('click', function() {
+        if (!showTop40InRegion || showTopPerCountry) {
+            showTop40InRegion = true;
+            showTopPerCountry = false;
+            this.classList.add('active');
+            document.getElementById('all-centers-btn').classList.remove('active');
+            document.getElementById('top-country-btn').classList.remove('active');
+            reloadCurrentRegion();
+        }
+    });
+    
     function switchRegion(region) {
         // Update region state
         currentRegion = region;
+        
+        // Reset filter state
+        showTopPerCountry = false;
+        showTop40InRegion = false;
         
         // Update toggle buttons
         document.getElementById('europe-btn').classList.toggle('active', region === 'europe');
@@ -178,6 +218,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('south-america-btn').classList.toggle('active', region === 'south-america');
         document.getElementById('africa-btn').classList.toggle('active', region === 'africa');
         document.getElementById('oceania-btn').classList.toggle('active', region === 'oceania');
+        
+        // Update filter buttons
+        document.getElementById('all-centers-btn').classList.add('active');
+        document.getElementById('top-country-btn').classList.remove('active');
+        document.getElementById('top-40-btn').classList.remove('active');
         
         // Clear existing markers and heat layers
         markersLayer.clearLayers();
@@ -190,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset view based on region
         if (region === 'europe') {
             map.setView([50.0, 10.0], 4);
-            loadRegionData(aiResearchCenters);
+            loadRegionData(europeanResearchCenters);
         } else if (region === 'north-america') {
             map.setView([40.0, -100.0], 3);
             loadRegionData(northAmericanResearchCenters);
@@ -218,6 +263,31 @@ document.addEventListener('DOMContentLoaded', function() {
         map.invalidateSize();
     }
     
+    function reloadCurrentRegion() {
+        // Clear existing markers and heat layers
+        markersLayer.clearLayers();
+        
+        if (activeHeatLayer) {
+            mapLayers.removeLayer(activeHeatLayer);
+            activeHeatLayer = null;
+        }
+        
+        // Reload the current region with the current filter
+        if (currentRegion === 'europe') {
+            loadRegionData(europeanResearchCenters);
+        } else if (currentRegion === 'north-america') {
+            loadRegionData(northAmericanResearchCenters);
+        } else if (currentRegion === 'asia') {
+            loadRegionData(asianResearchCenters);
+        } else if (currentRegion === 'south-america') {
+            loadRegionData(southAmericanResearchCenters);
+        } else if (currentRegion === 'africa') {
+            loadRegionData(africanResearchCenters);
+        } else if (currentRegion === 'oceania') {
+            loadRegionData(oceaniaResearchCenters);
+        }
+    }
+    
     // Function to load country boundaries based on the current region
     function loadCountryBoundaries() {
         // Clear existing country layers
@@ -229,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Determine which data source to use based on current region
         let dataSource;
         if (currentRegion === 'europe') {
-            dataSource = aiResearchCenters;
+            dataSource = europeanResearchCenters;
         } else if (currentRegion === 'north-america') {
             dataSource = northAmericanResearchCenters;
         } else if (currentRegion === 'asia') {
@@ -357,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let dataSource;
                 
                 if (currentRegion === 'europe') {
-                    dataSource = aiResearchCenters;
+                    dataSource = europeanResearchCenters;
                 } else if (currentRegion === 'north-america') {
                     dataSource = northAmericanResearchCenters;
                 } else if (currentRegion === 'asia') {
@@ -379,37 +449,71 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to load region data and create markers and heat map
     function loadRegionData(regionData) {
-        // Create array to store heat map data
-        const heatData = [];
+        // Create array to store all centers with their ratings
+        let allCenters = [];
+        let topCentersByCountry = new Map();
         
         // Process each country's research centers
         Object.keys(regionData).forEach(country => {
             const centers = regionData[country];
             
-            // Process each research center
+            // Find the top-rated center for each country
+            let topCenter = centers.reduce((prev, current) => {
+                const prevRating = prev.rating || 0;
+                const currentRating = current.rating || 0;
+                return currentRating > prevRating ? current : prev;
+            }, centers[0]);
+            
+            // Store the top center for this country
+            topCenter.country = country;
+            topCentersByCountry.set(country, topCenter);
+            
+            // Add all centers to the array
             centers.forEach(center => {
-                // Create marker for the center
-                const marker = L.marker(center.coordinates, {
-                    title: center.name,
-                    riseOnHover: true
-                });
-                
-                // Add popup with basic info
-                marker.bindPopup(`<strong>${center.name}</strong><br>${center.city}, ${country}`);
-                
-                // Add click event to show detailed info
-                marker.on('click', function() {
-                    displayCenterDetails(center, country);
-                });
-                
-                // Add marker to the markers layer
-                markersLayer.addLayer(marker);
-                
-                // Add data point to heat map data
-                // Use the rating to determine intensity (or default to 7.5)
-                const intensity = center.rating || 7.5;
-                heatData.push([center.coordinates[0], center.coordinates[1], intensity]);
+                center.country = country;
+                allCenters.push(center);
             });
+        });
+        
+        // Sort all centers by rating for top 40 filter
+        let sortedCenters = [...allCenters].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        let top40Centers = sortedCenters.slice(0, 40);
+        
+        // Determine which centers to show based on the filter
+        let centersToShow;
+        if (showTopPerCountry) {
+            centersToShow = Array.from(topCentersByCountry.values());
+        } else if (showTop40InRegion) {
+            centersToShow = top40Centers;
+        } else {
+            centersToShow = allCenters;
+        }
+        
+        // Create array to store heat map data
+        const heatData = [];
+        
+        // Process centers to show
+        centersToShow.forEach(center => {
+            // Create marker for the center
+            const marker = L.marker(center.coordinates, {
+                title: center.name,
+                riseOnHover: true
+            });
+            
+            // Add popup with basic info
+            marker.bindPopup(`<strong>${center.name}</strong><br>${center.city}, ${center.country}`);
+            
+            // Add click event to show detailed info
+            marker.on('click', function() {
+                displayCenterDetails(center, center.country);
+            });
+            
+            // Add marker to the markers layer
+            markersLayer.addLayer(marker);
+            
+            // Add data point to heat map data
+            const intensity = center.rating || 7.5;
+            heatData.push([center.coordinates[0], center.coordinates[1], intensity]);
         });
         
         // Create heat map layer
@@ -527,5 +631,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Load initial data for Europe (default)
-    loadRegionData(aiResearchCenters);
+    loadRegionData(europeanResearchCenters);
 }); 

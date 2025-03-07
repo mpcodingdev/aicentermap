@@ -375,4 +375,49 @@ footer a:hover {
 
 .region-toggle-btn:last-child {
     border-radius: 0 5px 5px 0;
+}
+
+/* Filter toggle bar styling */
+.filter-toggle-bar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.filter-toggle-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: white;
+    color: #2c3e50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-toggle-btn:last-child {
+    border-bottom: none;
+}
+
+.filter-toggle-btn.active {
+    background-color: #4285F4;
+    color: white;
+}
+
+.filter-toggle-btn:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.filter-toggle-btn:last-child {
+    border-radius: 0 0 4px 4px;
 } 

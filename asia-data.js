@@ -65,7 +65,7 @@ const asianResearchCenters = {
             coordinates: [35.6895, 139.6917],
             description: "Leading research in deep learning, optimization, and AI ethics",
             website: "https://www.riken.jp/en/research/labs/aip/",
-            rating: 9.4
+            rating: 9.6
         },
         {
             name: "University of Tokyo - Machine Intelligence Laboratory",
@@ -73,7 +73,7 @@ const asianResearchCenters = {
             coordinates: [35.7128, 139.7621],
             description: "Research in machine learning, computer vision, and natural language processing",
             website: "https://www.i.u-tokyo.ac.jp/",
-            rating: 9.2
+            rating: 9.5
         },
         {
             name: "Kyoto University - Graduate School of Informatics",
@@ -128,18 +128,18 @@ const asianResearchCenters = {
         {
             name: "Tsinghua University - Institute for Artificial Intelligence",
             city: "Beijing",
-            coordinates: [39.9996, 116.3266],
-            description: "Research in AI theory, machine learning, and computer vision",
+            coordinates: [40.0000, 116.3333],
+            description: "Leading research in AI, machine learning, and computer vision",
             website: "https://www.tsinghua.edu.cn/en/",
-            rating: 9.5
+            rating: 9.6
         },
         {
             name: "Peking University - Center on Frontiers of Computing Studies",
             city: "Beijing",
-            coordinates: [39.9869, 116.3059],
-            description: "Research in AI foundations, algorithms, and applications",
+            coordinates: [39.9947, 116.3056],
+            description: "Research in AI, theoretical computer science, and machine learning",
             website: "https://cfcs.pku.edu.cn/english/",
-            rating: 9.3
+            rating: 9.5
         },
         {
             name: "Shanghai Jiao Tong University - AI Institute",
@@ -274,6 +274,22 @@ const asianResearchCenters = {
     ],
     "Singapore": [
         {
+            name: "NUS - School of Computing",
+            city: "Singapore",
+            coordinates: [1.2966, 103.7764],
+            description: "Research in AI, machine learning, and computer vision",
+            website: "https://www.comp.nus.edu.sg/",
+            rating: 9.4
+        },
+        {
+            name: "Nanyang Technological University - School of Computer Science and Engineering",
+            city: "Singapore",
+            coordinates: [1.3483, 103.6831],
+            description: "Research in AI, robotics, and machine learning",
+            website: "https://www.ntu.edu.sg/scse",
+            rating: 9.3
+        },
+        {
             name: "AI Singapore",
             city: "Singapore",
             coordinates: [1.2966, 103.7764],
@@ -288,14 +304,6 @@ const asianResearchCenters = {
             description: "Research in machine learning, computer vision, and natural language processing",
             website: "https://ailab.nus.edu.sg/",
             rating: 8.8
-        },
-        {
-            name: "Nanyang Technological University - School of Computer Science and Engineering",
-            city: "Singapore",
-            coordinates: [1.3483, 103.6831],
-            description: "Research in AI, machine learning, and data science",
-            website: "https://www.ntu.edu.sg/scse",
-            rating: 8.9
         },
         {
             name: "Singapore Management University - Centre for AI & Data Governance",
