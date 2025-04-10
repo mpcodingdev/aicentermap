@@ -1,4 +1,6 @@
-# Global AI Research Centers Map
+# Global AI Research Centers Map - Click here 👇🏼
+
+# https://mpcodingdev.github.io/aicentermap/
 
 This project is an interactive web-based map that showcases the main centers of AI research across the world, providing information about each research center and links to their websites.
 
